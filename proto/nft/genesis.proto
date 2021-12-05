@@ -1,0 +1,14 @@
+syntax = "proto3";
+package lebrian9889.aeternalism.nft;
+
+import "nft/nft.proto";
+// this line is used by starport scaffolding # genesis/proto/import
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/lebrian9889/aeternalism/x/nft/types";
+
+// GenesisState defines the nft module's genesis state.
+message GenesisState {
+    repeated Nft nftList = 1 [(gogoproto.nullable) = false];
+  // this line is used by starport scaffolding # genesis/proto/state
+}

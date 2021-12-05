@@ -1,0 +1,28 @@
+syntax = "proto3";
+package lebrian9889.aeternalism.nft;
+
+// this line is used by starport scaffolding # proto/tx/import
+
+option go_package = "github.com/lebrian9889/aeternalism/x/nft/types";
+
+// Msg defines the Msg service.
+service Msg {
+      rpc CreateNft(MsgCreateNft) returns (MsgCreateNftResponse);
+// this line is used by starport scaffolding # proto/tx/rpc
+}
+
+message MsgCreateNft {
+  string creator = 1;
+  string mediaUrl = 2;
+  string owner = 3;
+  string orgId = 4;
+  string orgOwner = 5;
+  string orgChain = 6;
+  string orgAddress = 7;
+  string orgNounce = 8;
+}
+
+message MsgCreateNftResponse {
+}
+
+// this line is used by starport scaffolding # proto/tx/message

@@ -1,0 +1,17 @@
+syntax = "proto3";
+package lebrian9889.aeternalism.nft;
+
+option go_package = "github.com/lebrian9889/aeternalism/x/nft/types";
+
+
+
+message Nft {
+  string index = 1; 
+  string mediaUrl = 2; 
+  string owner = 3; 
+  string orgId = 4; 
+  string orgOwner = 5; 
+  string orgChain = 6; 
+  string orgAddress = 7;
+}
+
