@@ -1,56 +1,38 @@
-# aeternalism
-**aeternalism** is a blockchain built using Cosmos SDK and Tendermint and created with [Starport](https://github.com/tendermint/starport).
+# Aeternalism
+**Aeternalism** is a blockchain built using Cosmos SDK and Tendermint and created with Starport. 
+The project is aim to be a centralized HUB where user can create/mint/transfer NFT token between different blockchains
 
 ## Get started
+
+### 1. System overview
+
+![System diagram!](https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/765/577/datas/gallery.jpg)
+
+The system consists of 4 components
+- Aeternalism chain that has an NFT module with only 1 function: CreateNFT
+- Ethereum smart contracts where users mint and lock NFT, source code located at [Github](https://github.com/lebrian9889/aeschain-ethereum)
+- Aeternalism's Go client which listens to LockNFT event on Ethereum and calls CreateNFT on the Aeternalism chain, source code located at [Github](https://github.com/lebrian9889/aeschain-client)
+- Website where user use Metamask and Keplr to interact with the system, source code located at [Github](https://github.com/lebrian9889/frontend)
+
+### 2. Installation and running
+
+Aeternalism requires Golang 1.16 or higher and starport. To run the blockchain on your local machine, go to the root of the project then run the command
 
 ```
 starport chain serve
 ```
 
-`serve` command installs dependencies, builds, initializes, and starts your blockchain in development.
+For the other components, please follow the instruction in each repos.
 
-### Configure
+### 3. Usage
 
-Your blockchain in development can be configured with `config.yml`. To learn more, see the [Starport docs](https://docs.starport.network).
+Here is the video that describes the UX of the project
 
-### Launch
+[![Video demo](https://img.youtube.com/vi/5IrEN1OG338/0.jpg)](https://www.youtube.com/watch?v=5IrEN1OG338)
 
-To launch your blockchain live on multiple nodes, use `starport network` commands. Learn more about [Starport Network](https://github.com/tendermint/spn).
-
-### Web Frontend
-
-Starport has scaffolded a Vue.js-based web app in the `vue` directory. Run the following commands to install dependencies and start the app:
-
-```
-cd vue
-npm install
-npm run serve
-```
-
-The frontend app is built using the `@starport/vue` and `@starport/vuex` packages. For details, see the [monorepo for Starport front-end development](https://github.com/tendermint/vue).
-
-## Release
-To release a new version of your blockchain, create and push a new tag with `v` prefix. A new draft release with the configured targets will be created.
-
-```
-git tag v0.1
-git push origin v0.1
-```
-
-After a draft release is created, make your final changes from the release page and publish it.
-
-### Install
-To install the latest version of your blockchain node's binary, execute the following command on your machine:
-
-```
-curl https://get.starport.network/lebrian9889/aeternalism@latest! | sudo bash
-```
-`lebrian9889/aeternalism` should match the `username` and `repo_name` of the Github repository to which the source code was pushed. Learn more about [the install process](https://github.com/allinbits/starport-installer).
-
-## Learn more
-
-- [Starport](https://github.com/tendermint/starport)
-- [Starport Docs](https://docs.starport.network)
-- [Cosmos SDK documentation](https://docs.cosmos.network)
-- [Cosmos SDK Tutorials](https://tutorials.cosmos.network)
-- [Discord](https://discord.gg/cosmosnetwork)
+- At the beginning, user will go to the website and mint a predefined ERC721 NFT on Ethereum testnet (Ropsten).
+- After that, the NFT's creator will interact with Locker smart contract, he will call the lock method which will
+    - Send the ERC721 NFT to Locker contract with the Aeternalism's address of the new owner from Cosmos
+    - Emit the LockNFT event
+- The Go client of Aeternalism will listen to LockNFT event, parse message then call Aeternalism's NFT's module's function CreateNFT
+- If everything goes well, a new NFT will be created on Aeternalism chain with all the data from the previous ERC721 token 
